@@ -1,14 +1,14 @@
-const http = require('http');
- 
-const hostname = '127.0.0.1';
-const port = 3000;
- 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
+import { app } from "./app.js";
+import { config } from "dotenv";
+import { connectToDatabase } from "./config/database.js";
+
+config({
+  path: "./config/config.env",
 });
- 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+
+connectToDatabase();
+
+app.listen(process.env.PORT, () => {
+  console.log("Server is running on port " + process.env.PORT);
 });
+
