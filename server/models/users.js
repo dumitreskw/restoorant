@@ -30,8 +30,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  role: {
+    type: String,
+    default: "USER"
+  },
   otp: Number,
+  resetPassword_otp: Number,
   otp_expiry: Date,
+  resetPassword_otp_expiry: Date
 });
 
 userSchema.pre("save", async function (next) {
@@ -43,9 +49,15 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ _id: this._id, username: this.name, role: this.role }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE * 24 * 60 * 60 * 1000,
   });
 };
+
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+userSchema.index({ otp_expiry: 1 }, { expireAfterSeconds: 0 });
 
 export const User = mongoose.model("User", userSchema);
