@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { addressSchema } from "./address.js";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -34,6 +35,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "USER"
   },
+  addresses: [addressSchema], 
   otp: Number,
   resetPassword_otp: Number,
   otp_expiry: Date,

@@ -1,5 +1,5 @@
 import express from "express";
-import { login, logout, register, verify } from "../controllers/user.js";
+import { addAddress, deleteAddress, getAdresses, login, logout, register, verify } from "../controllers/user.js";
 import { isAuthenticated } from "../middleware/auth.js";
 import { getCategories, addCategory, getProductsByCategory, addProduct, updateProduct, deleteProduct, getProducts, getProductsWithCategories, getProductById } from "../controllers/product.js";
 
@@ -17,5 +17,8 @@ router.route("/product-by-id").post(getProductById);
 router.route("/products").post(addProduct);
 router.route("/products").put(updateProduct);
 router.route("/delete-product").post(deleteProduct);
+router.route("/address").get(isAuthenticated,getAdresses);
+router.route("/address").post(isAuthenticated,addAddress);
+router.route("/delete-address").post(isAuthenticated, deleteAddress);
 
 export default router;

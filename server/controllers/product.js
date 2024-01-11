@@ -144,7 +144,7 @@ export const addProduct = async (req, res) => {
   }
 
   try {
-    const category = await Category.findOne({ name: categoryName });
+    let category = await Category.findOne({ name: categoryName });
 
     if (!category) {
       category = await Category.create({
@@ -163,7 +163,6 @@ export const addProduct = async (req, res) => {
       categoryName: categoryName,
       index: id,
     });
-    console.log("here" + id);
 
     category.products.push(product);
     await category.save();
@@ -173,7 +172,6 @@ export const addProduct = async (req, res) => {
       message: "Product added successfully",
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: error,
