@@ -12,7 +12,8 @@ export const sendToken = (res, user, statusCode, message) => {
   const options = {
     httpOnly: false,
     expires: new Date(Date.now() + process.env.JWT_EXPIRE * 24 * 60 * 60 * 1000),
-    sameSite: 'None'
+    sameSite: 'None',
+    secure: true
   };
 
   res
