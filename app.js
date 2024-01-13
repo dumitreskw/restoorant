@@ -7,7 +7,8 @@ import cors from "cors";
 export const app = express();
 
 app.use(cors({
-  origin: '*',
+  origin: 'https://licenta.ovidiudumitrescu.com',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
 app.use(express.json());
