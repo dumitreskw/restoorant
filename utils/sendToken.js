@@ -13,10 +13,11 @@ export const sendToken = (res, user, statusCode, message) => {
     httpOnly: false,
     expires: new Date(Date.now() + process.env.JWT_EXPIRE * 24 * 60 * 60 * 1000),
     sameSite: 'None',
-    secure: true
+    secure: true,
+    domain: '.onrender.com'
   };
 
-  res
+  return res
     .status(statusCode)
     .cookie("token", token, options)
     .json({ success: true, message: message, user: userData });
