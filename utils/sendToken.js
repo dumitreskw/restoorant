@@ -14,7 +14,7 @@ export const sendToken = (res, user, statusCode, message) => {
     expires: new Date(Date.now() + process.env.JWT_EXPIRE * 24 * 60 * 60 * 1000),
     sameSite: 'None',
     secure: true,
-    domain: 'https://licenta.ovidiudumitrescu.com',
+    domain: 'licenta.ovidiudumitrescu.com',
     path: '/'
   };
 
